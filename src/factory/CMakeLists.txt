@@ -1,0 +1,5 @@
+aux_source_directory(. srcs)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+link_directories(${PROJECT_SOURCE_DIR}/lib)
+link_libraries(graph)
+add_library(factory ${srcs})

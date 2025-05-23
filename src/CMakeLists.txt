@@ -1,0 +1,6 @@
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+add_subdirectory(main)
+add_subdirectory(utils)
+add_subdirectory(graph)
+add_subdirectory(bloom)
+add_subdirectory(factory)
