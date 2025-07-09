@@ -95,13 +95,8 @@ public:
 	 *  Return the element at the given index.
 	 */
 	T& operator[](SizeType i) const {
-		if (i < this->elementNum)
 			return this->elementList[i];
-		else {
-			printf("Error in MyVector accessing array element: Out of boundary! Accessing [%lld] while size = %lld and length = %lld!\n", (unsigned long long) i,
-					(unsigned long long) elementNum, (unsigned long long) length);
-			exit(1);
-		}
+
 	}
 
 protected:
@@ -186,17 +181,12 @@ void MyVector<T, SizeType>::push_back(T const& _val) {
 
 template<class T, class SizeType>
 void MyVector<T, SizeType>::pop_back() {
-	if (this->elementNum > 0) {
 		this->elementNum--;
 		// Added by jhgan at 4:32pm on Sept 5, 2016.
 		// Shrink the length of the array when necessary.
 		if (this->elementNum * 4 <= this->length)
 			this->shrink_to_half();
-		//
-	} else {
-		printf("Error in MyVector<T>::pop_back: Out of boundary!\n");
-		exit(0);
-	}
+
 }
 
 template<class T, class SizeType>
@@ -209,7 +199,7 @@ void MyVector<T, SizeType>::reserve(SizeType len) {
 
 
         // 如果之前有旧数据，拷贝进来，然后释放旧内存
-		assert(len >= this->elementNum);  // 避免 memcpy 越界
+		//assert(len >= this->elementNum);  // 避免 memcpy 越界
 
         if (temp != NULL) {
             memcpy(this->elementList, temp, this->elementNum * sizeof(T));
@@ -273,11 +263,6 @@ void MyVector<T, SizeType>::shrink_to_fit() {
 //		this->elementList = new T[this->elementNum];
 		this->elementList = (T*) realloc(temp, sizeof(T) * this->elementNum);
 
-		if (this->elementList == NULL) {
-			// realloc is failed.
-			printf("Error in shrink_to_fit: the reallocation is failed!\n");
-			exit(0);
-		}
 
 		this->length = this->elementNum;
 //		memcpy(this->elementList, temp, this->elementNum * sizeof(T));
@@ -295,11 +280,6 @@ void MyVector<T, SizeType>::shrink_to_half() {
 	if (this->elementNum < halfLength) {
 		T* temp = this->elementList;
 		this->elementList = (T*) realloc(temp, sizeof(T) * halfLength);
-		if (this->elementList == NULL) {
-			// realloc is failed.
-			printf("Error in shrink_to_fit: the reallocation is failed!\n");
-			exit(0);
-		}
 		this->length = halfLength;
 	}
 }
